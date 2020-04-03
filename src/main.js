@@ -2,6 +2,8 @@
 
 const TASK_COUNT = 3;
 
+
+//           <-----------  TEMPLATES  ------------>
 const createSiteMenuTemplate = () => {
   return (
     `<section class="control__btn-wrap">
@@ -370,23 +372,34 @@ const createLoadMoreButtonTemplate = () => {
 };
 
 
+//           <-----------  RENDERS' EXPRESSIONS  ------------>
 const render = (container, template, place = `beforeend`) => {
   container.insertAdjacentHTML(place, template);
 };
 
+const renderMenu = () => {
+  const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
+  render(siteHeaderElement, createSiteMenuTemplate());
+};
+const renderBoards = () => {
+  render(siteMainElement, createFilterTemplate());
+  render(siteMainElement, createBoardTemplate());
+};
+const renderTasks = () => {
+  const boardElement = siteMainElement.querySelector(`.board`);
+  const taskListElement = boardElement.querySelector(`.board__tasks`);
+  render(taskListElement, createTaskEditTemplate());
+
+  for (let i = 0; i < TASK_COUNT; i++) {
+    render(taskListElement, createTaskTemplate());
+  }
+
+  render(boardElement, createLoadMoreButtonTemplate());
+};
+
+
+//           <-----------  RENDERS' CALLS ------------>
 const siteMainElement = document.querySelector(`.main`);
-const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
-
-render(siteHeaderElement, createSiteMenuTemplate());
-render(siteMainElement, createFilterTemplate());
-render(siteMainElement, createBoardTemplate());
-
-
-const taskListElement = siteMainElement.querySelector(`.board__tasks`);
-const boardElement = siteMainElement.querySelector(`.board`);
-
-render(taskListElement, createTaskEditTemplate());
-for (let i = 0; i < TASK_COUNT; i++) {
-  render(taskListElement, createTaskTemplate());
-}
-render(boardElement, createLoadMoreButtonTemplate());
+renderMenu();
+renderBoards();
+renderTasks();
