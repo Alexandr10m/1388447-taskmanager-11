@@ -2,8 +2,6 @@
 
 const TASK_COUNT = 3;
 
-
-//           <-----------  TEMPLATES  ------------>
 const createSiteMenuTemplate = () => {
   return (
     `<section class="control__btn-wrap">
@@ -36,7 +34,6 @@ const createSiteMenuTemplate = () => {
     </section>`
   );
 };
-
 const createFilterTemplate = () => {
   return (
     `<section class="main__filter filter container">
@@ -100,7 +97,6 @@ const createFilterTemplate = () => {
     </section>`
   );
 };
-
 const createBoardTemplate = () => {
   return (
     `<section class="board container">
@@ -114,7 +110,6 @@ const createBoardTemplate = () => {
     </section>`
   );
 };
-
 const createTaskTemplate = () => {
   return (
     `<article class="card card--black">
@@ -162,7 +157,6 @@ const createTaskTemplate = () => {
     </article>`
   );
 };
-
 const createTaskEditTemplate = () => {
   return (
     `<article class="card card--edit card--yellow card--repeat">
@@ -364,15 +358,11 @@ const createTaskEditTemplate = () => {
     </article>`
   );
 };
-
 const createLoadMoreButtonTemplate = () => {
   return (
     `<button class="load-more" type="button">load more</button>`
   );
 };
-
-
-//           <-----------  RENDERS' EXPRESSIONS  ------------>
 const render = (container, template, place = `beforeend`) => {
   container.insertAdjacentHTML(place, template);
 };
@@ -397,8 +387,6 @@ const renderTasks = () => {
   render(boardElement, createLoadMoreButtonTemplate());
 };
 
-
-//           <-----------  RENDERS' CALLS ------------>
 const siteMainElement = document.querySelector(`.main`);
 renderMenu();
 renderBoards();
