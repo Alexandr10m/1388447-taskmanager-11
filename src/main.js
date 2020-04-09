@@ -5,8 +5,11 @@ import {createBoardTemplate} from './components/Sorts';
 import {createTaskTemplate} from './components/Task';
 import {createTaskEditTemplate} from './components/Task-editor';
 import {createLoadMoreButtonTemplate} from './components/Btn-more';
+import {generateTasks} from './mock/task';
 
-const TASK_COUNT = 3;
+const TASK_COUNT = 12;
+
+const tasks = generateTasks(TASK_COUNT);
 
 const renderMenu = () => {
   const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
@@ -21,8 +24,8 @@ const renderTasks = () => {
   const taskListElement = boardElement.querySelector(`.board__tasks`);
   render(taskListElement, createTaskEditTemplate());
 
-  for (let i = 0; i < TASK_COUNT; i++) {
-    render(taskListElement, createTaskTemplate());
+  for (let i = 1; i < tasks.length; i++) {
+    render(taskListElement, createTaskTemplate(tasks[i]));
   }
 
   render(boardElement, createLoadMoreButtonTemplate());
