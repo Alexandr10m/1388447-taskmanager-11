@@ -6,19 +6,21 @@ import {createTaskTemplate} from './components/Task';
 import {createTaskEditTemplate} from './components/Task-editor';
 import {createLoadMoreButtonTemplate} from './components/Btn-more';
 import {generateTasks} from './mock/task';
+import {generateFilters} from './mock/filter';
 
 const TASK_COUNT = 22;
 const SHOWING_TASKS_COUNT_ON_START = 8;
 const SHOWING_TASKS_COUNT_BY_BUTTON = 8;
 
 const tasks = generateTasks(TASK_COUNT);
+const filters = generateFilters();
 
 const renderMenu = () => {
   const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
   render(siteHeaderElement, createSiteMenuTemplate());
 };
 const renderBoards = () => {
-  render(siteMainElement, createFilterTemplate());
+  render(siteMainElement, createFilterTemplate(filters));
   render(siteMainElement, createBoardTemplate());
 };
 const renderTasks = () => {
