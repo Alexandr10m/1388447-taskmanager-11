@@ -23,12 +23,12 @@ const renderBoards = () => {
   render(siteMainElement, createFilterTemplate(filters));
   render(siteMainElement, createBoardTemplate());
 };
+const renderTaskEditer = () => {
+  tasks.slice(0, 1).forEach((task) => render(taskListElement, createTaskEditTemplate(task)));
+};
 const renderTasks = () => {
-  render(taskListElement, createTaskEditTemplate());
-
-  for (let i = 1; i < showingTasksCout; i++) {
-    render(taskListElement, createTaskTemplate(tasks[i]));
-  }
+  tasks.slice(1, showingTasksCout)
+    .forEach((task) => render(taskListElement, createTaskTemplate(task)));
 };
 const renderButtonLoadMore = () => {
   render(boardElement, createLoadMoreButtonTemplate());
@@ -41,6 +41,7 @@ renderMenu();
 renderBoards();
 const boardElement = siteMainElement.querySelector(`.board`);
 const taskListElement = boardElement.querySelector(`.board__tasks`);
+renderTaskEditer();
 renderTasks();
 renderButtonLoadMore();
 const loadMoreButton = boardElement.querySelector(`.load-more`);
