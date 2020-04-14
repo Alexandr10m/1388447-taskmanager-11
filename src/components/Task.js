@@ -1,4 +1,4 @@
-import {MONTH_NAMES} from "../const";
+import {MONTH_NAMES} from "../constants";
 import {formatTime} from "../utils";
 
 const createTaskTemplate = (task) => {
