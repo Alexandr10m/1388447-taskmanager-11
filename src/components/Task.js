@@ -1,18 +1,37 @@
-const createTaskTemplate = () => {
+import {MONTH_NAMES} from "../constants";
+import {formatTime} from "../utils";
+
+const createTaskTemplate = (task) => {
+  const {description, dueDate, color, repeatingDays, isArchive, isFavorite} = task;
+
+  const isDateShowing = !!dueDate;
+  const date = isDateShowing ? `${dueDate.getDate()} ${MONTH_NAMES[dueDate.getMonth()]}` : ``;
+  const time = isDateShowing ? formatTime(dueDate) : ``;
+
+  const isExpired = dueDate instanceof Date && dueDate < Date.now();
+  const deadlineClass = isExpired ? `card--deadline` : ``;
+
+  const isRepeatingTask = Object.values(repeatingDays).some(Boolean);
+  const repeatClass = isRepeatingTask ? `card--repeat` : ``;
+
+  const archiveButtonInactiveClass = isArchive ? `` : `card__btn--disabled`;
+  const favoriteButtonInactiveClass = isFavorite ? `` : `card__btn--disabled`;
+
+
   return (
-    `<article class="card card--black">
+    `<article class="card card--${color} ${deadlineClass} ${repeatClass}">
       <div class="card__form">
         <div class="card__inner">
           <div class="card__control">
             <button type="button" class="card__btn card__btn--edit">
               edit
             </button>
-            <button type="button" class="card__btn card__btn--archive">
+            <button type="button" class="card__btn card__btn--archive ${archiveButtonInactiveClass}">
               archive
             </button>
             <button
               type="button"
-              class="card__btn card__btn--favorites card__btn--disabled"
+              class="card__btn card__btn--favorites ${favoriteButtonInactiveClass}"
             >
               favorites
             </button>
@@ -25,7 +44,7 @@ const createTaskTemplate = () => {
           </div>
 
           <div class="card__textarea-wrap">
-            <p class="card__text">Example default task with default color.</p>
+            <p class="card__text">${description}</p>
           </div>
 
           <div class="card__settings">
@@ -33,8 +52,8 @@ const createTaskTemplate = () => {
               <div class="card__dates">
                 <div class="card__date-deadline">
                   <p class="card__input-deadline-wrap">
-                    <span class="card__date">23 September</span>
-                    <span class="card__time">16:15</span>
+                    <span class="card__date">${date}</span>
+                    <span class="card__time">${time}</span>
                   </p>
                 </div>
               </div>
