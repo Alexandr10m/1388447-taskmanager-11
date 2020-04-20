@@ -1,9 +1,7 @@
 import {MONTH_NAMES} from "../constants";
-import {formatTime} from "../utils";
+import {formatTime, createElement} from "../utils";
 
-const createTaskTemplate = (task) => {
-  const {description, dueDate, color, repeatingDays, isArchive, isFavorite} = task;
-
+const createTaskTemplate = ({description, dueDate, color, repeatingDays, isArchive, isFavorite}) => {
   const isDateShowing = !!dueDate;
   const date = isDateShowing ? `${dueDate.getDate()} ${MONTH_NAMES[dueDate.getMonth()]}` : ``;
   const time = isDateShowing ? formatTime(dueDate) : ``;
@@ -16,7 +14,6 @@ const createTaskTemplate = (task) => {
 
   const archiveButtonInactiveClass = isArchive ? `` : `card__btn--disabled`;
   const favoriteButtonInactiveClass = isFavorite ? `` : `card__btn--disabled`;
-
 
   return (
     `<article class="card card--${color} ${deadlineClass} ${repeatClass}">
@@ -64,4 +61,26 @@ const createTaskTemplate = (task) => {
     </article>`
   );
 };
-export {createTaskTemplate};
+
+
+export default class Task {
+  constructor(task) {
+    this._task = task;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createTaskTemplate(this._task);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

@@ -1,5 +1,18 @@
-const render = (container, template, place = `beforeend`) => {
-  container.insertAdjacentHTML(place, template);
+const RenderPosition = {
+  AFTERBEGIN: `afterbegin`,
+  BEFOREEND: `beforeend`
+};
+
+const render = (container, element, place = RenderPosition.BEFOREEND) => {
+  switch (place) {
+    case RenderPosition.AFTERBEGIN:
+      container.prepend(element);
+      break;
+
+    case RenderPosition.BEFOREEND:
+      container.append(element);
+      break;
+  }
 };
 
 const castTimeFormat = (value) => {
@@ -12,4 +25,11 @@ const formatTime = (date) => {
 
   return `${hours}: ${minutes}`;
 };
-export {render, formatTime};
+
+const createElement = (template) => {
+  const newElement = document.createElement(`div`);
+  newElement.innerHTML = template;
+
+  return newElement.firstChild;
+};
+export {render, formatTime, createElement, RenderPosition};
