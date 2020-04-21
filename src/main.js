@@ -4,6 +4,7 @@ import LoadMoreButtonComponent from './components/Btn-more';
 import TaskEditComponent from './components/Task-editor';
 import TaskComponent from './components/Task';
 import TasksComponent from './components/Tasks';
+import NoTaskComponent from './components/no-tasks';
 import SiteMenuComponent from './components/Menu';
 import SortComponent from './components/Sort';
 import {generateTasks} from './mock/task';
@@ -59,6 +60,13 @@ const renderBoard = (tasks) => {
   const boardComponent = new BoardComponent();
 
   render(siteMainElement, boardComponent.getElement());
+
+  const isAllTasksArchived = tasks.every((task) => task.isArchive);
+
+  if (isAllTasksArchived) {
+    render(boardComponent.getElement(), new NoTaskComponent().getElement());
+    return;
+  }
   render(boardComponent.getElement(), new SortComponent().getElement());
   render(boardComponent.getElement(), new TasksComponent().getElement());
 
