@@ -9,7 +9,7 @@ import SiteMenuComponent from './components/Menu';
 import SortComponent from './components/Sort';
 import {generateTasks} from './mock/task';
 import {generateFilters} from './mock/filter';
-import {render} from './utils.js';
+import {render} from './utils/render.js';
 import {pagination} from './pagination';
 
 const TASK_COUNT = 22;
