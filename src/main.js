@@ -9,7 +9,7 @@ import SiteMenuComponent from './components/Menu';
 import SortComponent from './components/Sort';
 import {generateTasks} from './mock/task';
 import {generateFilters} from './mock/filter';
-import {render} from './utils/render.js';
+import {render, replace} from './utils/render.js';
 import {pagination} from './pagination';
 
 const TASK_COUNT = 22;
@@ -17,17 +17,17 @@ const SHOWING_TASKS_COUNT_ON_START = 8;
 
 const renderMenu = () => {
   const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
-  render(siteHeaderElement, new SiteMenuComponent().getElement());
+  render(siteHeaderElement, new SiteMenuComponent());
 };
 const renderFilters = () => {
-  render(siteMainElement, new FilterComponent(filters).getElement());
+  render(siteMainElement, new FilterComponent(filters));
 };
 const renderTask = (taskListElement, task) => {
   const replaceTaskToEdit = () => {
-    taskListElement.replaceChild(taskEditComponent.getElement(), taskComponent.getElement());
+    replace(taskEditComponent, taskComponent);
   };
   const replaceEditToTask = () => {
-    taskListElement.replaceChild(taskComponent.getElement(), taskEditComponent.getElement());
+    replace(taskComponent, taskEditComponent);
   };
 
   const onEscKeyDown = (evt) => {
@@ -54,21 +54,21 @@ const renderTask = (taskListElement, task) => {
     document.removeEventListener(`keydown`, onEscKeyDown);
   });
 
-  render(taskListElement, taskComponent.getElement());
+  render(taskListElement, taskComponent);
 };
 const renderBoard = (tasks) => {
   const boardComponent = new BoardComponent();
 
-  render(siteMainElement, boardComponent.getElement());
+  render(siteMainElement, boardComponent);
 
   const isAllTasksArchived = tasks.every((task) => task.isArchive);
 
   if (isAllTasksArchived) {
-    render(boardComponent.getElement(), new NoTaskComponent().getElement());
+    render(boardComponent.getElement(), new NoTaskComponent());
     return;
   }
-  render(boardComponent.getElement(), new SortComponent().getElement());
-  render(boardComponent.getElement(), new TasksComponent().getElement());
+  render(boardComponent.getElement(), new SortComponent());
+  render(boardComponent.getElement(), new TasksComponent());
 
   const taskListElement = boardComponent.getElement().querySelector(`.board__tasks`);
 
@@ -79,7 +79,7 @@ const renderBoard = (tasks) => {
   });
 
   const loadMoreButtonComponent = new LoadMoreButtonComponent();
-  render(boardComponent.getElement(), loadMoreButtonComponent.getElement());
+  render(boardComponent.getElement(), loadMoreButtonComponent);
 
   pagination(loadMoreButtonComponent, tasks, renderTask);
 };
