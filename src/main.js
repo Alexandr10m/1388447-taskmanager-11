@@ -58,22 +58,19 @@ const renderTask = (taskListElement, task) => {
 };
 const renderBoard = (tasks) => {
   const boardComponent = new BoardComponent();
-
   render(siteMainElement, boardComponent);
 
   const isAllTasksArchived = tasks.every((task) => task.isArchive);
-
   if (isAllTasksArchived) {
     render(boardComponent.getElement(), new NoTaskComponent());
     return;
   }
+
   render(boardComponent.getElement(), new SortComponent());
   render(boardComponent.getElement(), new TasksComponent());
 
   const taskListElement = boardComponent.getElement().querySelector(`.board__tasks`);
-
   let showingTasksCount = SHOWING_TASKS_COUNT_ON_START;
-
   tasks.slice(0, showingTasksCount).forEach((task) => {
     renderTask(taskListElement, task);
   });

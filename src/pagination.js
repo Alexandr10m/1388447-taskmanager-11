@@ -7,7 +7,7 @@ let showingTasksCount = SHOWING_TASKS_COUNT_ON_START;
 
 
 const pagination = (btnComponent, array, fn) => {
-  btnComponent.getElement().addEventListener(`click`, () => {
+  btnComponent.setClickHandler(() => {
     const taskListElement = document.querySelector(`.board__tasks`);
     const prevTasksCount = showingTasksCount;
 
