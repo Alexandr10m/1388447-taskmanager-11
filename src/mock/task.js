@@ -1,4 +1,4 @@
-import {COLORS} from '../constants';
+import {COLORS} from "../constants.js";
 
 const DESCRIPTION_ITEM = [
   `Изучить теорию`,

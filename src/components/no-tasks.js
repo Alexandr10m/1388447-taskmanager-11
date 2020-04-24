@@ -1,30 +1,17 @@
-import {createElement} from '../utils';
+import AbstractComponent from "./abstract-component.js";
 
-const createNoTaskTemplate = () => {
+
+const createNoTasksTemplate = () => {
   return (
     `<p class="board__no-tasks">
-  Click «ADD NEW TASK» in menu to create your first task
-  </p>`
+      Click «ADD NEW TASK» in menu to create your first task
+    </p>`
   );
 };
 
-export default class NoTask {
-  constructor() {
-    this._element = null;
-  }
 
+export default class NoTasks extends AbstractComponent {
   getTemplate() {
-    return createNoTaskTemplate();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+    return createNoTasksTemplate();
   }
 }
