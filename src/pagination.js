@@ -1,4 +1,4 @@
-import {remove} from './utils/render.js';
+import {remove} from "./utils/render.js";
 
 const SHOWING_TASKS_COUNT_ON_START = 8;
 const SHOWING_TASKS_COUNT_BY_BUTTON = 8;

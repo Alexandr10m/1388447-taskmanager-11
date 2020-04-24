@@ -1,11 +1,11 @@
-import LoadMoreButtonComponent from '../components/Btn-more';
-import NoTaskComponent from '../components/no-tasks';
-import SortComponent from '../components/Sort';
-import TasksComponent from '../components/Tasks';
-import TaskEditComponent from '../components/Task-editor';
-import TaskComponent from '../components/Task';
-import {render, replace} from '../utils/render.js';
-import {pagination} from '../pagination';
+import LoadMoreButtonComponent from "../components/Btn-more.js";
+import NoTaskComponent from "../components/no-tasks.js";
+import SortComponent from "../components/Sort.js";
+import TasksComponent from "../components/Tasks.js";
+import TaskEditComponent from "../components/Task-editor.js";
+import TaskComponent from "../components/Task.js";
+import {render, replace} from "../utils/render.js";
+import {pagination} from "../pagination.js";
 
 
 const SHOWING_TASKS_COUNT_ON_START = 8;
