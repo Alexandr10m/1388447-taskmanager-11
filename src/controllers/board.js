@@ -48,7 +48,7 @@ export default class BoardController {
     this._onDataChange = this._onDataChange.bind(this);
     this._onSortTypeChange = this._onSortTypeChange.bind(this);
     this._onViewChange = this._onViewChange.bind(this);
-    this._sortComponent.setSortTypeChangeHandler(this._onSortTypeChange); // в конструкторе сразу закидываю callback- зачем???
+    this._sortComponent.setSortTypeChangeHandler(this._onSortTypeChange); // ! в конструкторе сразу закидывают callback- зачем???
   }
 
   render(tasks) {
@@ -62,8 +62,8 @@ export default class BoardController {
       return;
     }
 
-    // почему callback закидываю не здесь this._sortComponent.setSortTypeChangeHandler(this._onSortTypeChange)
     render(container, this._sortComponent);
+    // ! почему callback закидываю не здесь this._sortComponent.setSortTypeChangeHandler(this._onSortTypeChange)
     render(container, this._tasksComponent);
 
     const taskListElement = this._tasksComponent.getElement();

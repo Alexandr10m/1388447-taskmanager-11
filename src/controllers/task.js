@@ -62,14 +62,8 @@ export default class TaskController {
     }
   }
 
-  setDefaultView() {
-    if (this._mode !== Mode.DEFAULT) {
-      this._replaceEditToTask();
-    }
-  }
-
   _replaceEditToTask() {
-    document.addEventListener(`keydown`, this._onEscKeyDown);
+    document.removeEventListener(`keydown`, this._onEscKeyDown);
     this._taskEditComponent.reset();
     replace(this._taskComponent, this._taskEditComponent);
     this._mode = Mode.DEFAULT;
@@ -87,6 +81,7 @@ export default class TaskController {
     if (isEscKey) {
       this._replaceEditToTask();
       document.removeEventListener(`keydown`, this._onEscKeyDown);
+      // ! зачем тут removeEventListener, если есть _replaceEditToTask() и в нем removeEventListener?
     }
   }
 }
