@@ -144,10 +144,6 @@ export default class TaskEdit extends AbstractSmartComponent {
     this._activeRepeatingDays = Object.assign({}, task.repeatingDays);
     this._submitHandler = null;
     this._subscribeOnEvents();
-    // ! почему у TaskEdit  в this._subscribeOnEvents() обработчики и подписка вместе сразу в компоненте,
-    // ! а у других компонентов подругому подписка в компоненте, callback с бизнес логикой в controller
-    // ! Только из-за того что он должен умень сам перерисоввываться и навешивать своиже обработчики.
-    // ! И если б не rerender(), то его обработчики должны быть в Controllere?
   }
 
   getTemplate() {
@@ -161,10 +157,6 @@ export default class TaskEdit extends AbstractSmartComponent {
   recoveryListeners() {
     this.setSubmitHandler(this._submitHandler);
     this._subscribeOnEvents();
-  }
-
-  rerender() {
-    super.rerender();
   }
 
   reset() {

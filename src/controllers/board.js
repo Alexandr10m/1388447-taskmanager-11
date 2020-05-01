@@ -46,9 +46,10 @@ export default class BoardController {
     this._tasksComponent = new TasksComponent();
     this._loadMoreButtonComponent = new LoadMoreButtonComponent();
     this._onDataChange = this._onDataChange.bind(this);
-    this._onSortTypeChange = this._onSortTypeChange.bind(this);
     this._onViewChange = this._onViewChange.bind(this);
-    this._sortComponent.setSortTypeChangeHandler(this._onSortTypeChange); // ! в конструкторе сразу закидывают callback- зачем???
+
+    this._onSortTypeChange = this._onSortTypeChange.bind(this);
+    this._sortComponent.setSortTypeChangeHandler(this._onSortTypeChange);
   }
 
   render(tasks) {

@@ -80,8 +80,6 @@ export default class TaskController {
 
     if (isEscKey) {
       this._replaceEditToTask();
-      document.removeEventListener(`keydown`, this._onEscKeyDown);
-      // ! зачем тут removeEventListener, если есть _replaceEditToTask() и в нем removeEventListener?
     }
   }
 }
