@@ -3,7 +3,7 @@ import TaskEditComponent from "../components/task-editor.js";
 import {render, replace} from "../utils/render.js";
 
 
-const Mode = {
+const Modes = {
   DEFAULT: `default`,
   EDIT: `edit`,
 };
@@ -13,7 +13,7 @@ export default class TaskController {
     this._container = container;
     this._onDataChange = onDataChange;
     this._onViewChange = onViewChange;
-    this._mode = Mode.DEFAULT;
+    this._mode = Modes.DEFAULT;
     this._taskComponent = null;
     this._taskEditComponent = null;
     this._onEscKeyDown = this._onEscKeyDown.bind(this);
@@ -57,7 +57,7 @@ export default class TaskController {
   }
 
   setDefaultView() {
-    if (this._mode !== Mode.DEFAULT) {
+    if (this._mode !== Modes.DEFAULT) {
       this._replaceEditToTask();
     }
   }
@@ -66,13 +66,13 @@ export default class TaskController {
     document.removeEventListener(`keydown`, this._onEscKeyDown);
     this._taskEditComponent.reset();
     replace(this._taskComponent, this._taskEditComponent);
-    this._mode = Mode.DEFAULT;
+    this._mode = Modes.DEFAULT;
   }
 
   _replaceTaskToEdit() {
     this._onViewChange();
     replace(this._taskEditComponent, this._taskComponent);
-    this._mode = Mode.EDIT;
+    this._mode = Modes.EDIT;
   }
 
   _onEscKeyDown(evt) {

@@ -64,7 +64,6 @@ export default class BoardController {
     }
 
     render(container, this._sortComponent);
-    // ! почему callback закидываю не здесь this._sortComponent.setSortTypeChangeHandler(this._onSortTypeChange)
     render(container, this._tasksComponent);
 
     const taskListElement = this._tasksComponent.getElement();
