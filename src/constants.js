@@ -20,4 +20,14 @@ const SORT_OPTIONS = {
   DATE_UP: `DATE up`,
   DATE_DOWN: `DATE down`
 };
-export {COLORS, DAYS, MONTH_NAMES, SORT_OPTIONS};
+
+const FilterType = {
+  ALL: `all`,
+  ARCHIVE: `archive`,
+  FAVORITES: `favorites`,
+  OVERDUE: `overdue`,
+  REPEATING: `repeating`,
+  TODAY: `today`
+};
+
+export {COLORS, DAYS, MONTH_NAMES, SORT_OPTIONS, FilterType};
