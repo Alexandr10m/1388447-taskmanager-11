@@ -3,6 +3,7 @@ import {COLORS, DAYS} from "../constants.js";
 import {formatTime, formatDate, isRepeating, isOverdueDate} from "../utils/common.js";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
+import {encode} from "he";
 
 const MIN_DESCRIPTION_LENGTH = 1;
 const MAX_DESCRIPTION_LENGTH = 140;
@@ -77,7 +78,8 @@ const createRepeatingDaysMarkup = (days, repeatingDays) => {
 
 const createTaskEditTemplate = (task, options = {}) => {
   const {dueDate, color} = task;
-  const {isDateShowing, isRepeatingTask, activeRepeatingDays, currentDescription: description} = options;
+  const {isDateShowing, isRepeatingTask, activeRepeatingDays, currentDescription} = options;
+  const description = encode(currentDescription);
 
   const isExpired = dueDate instanceof Date && isOverdueDate(dueDate, new Date());
   const isBlockSaveButton = (isDateShowing && isRepeatingTask) || (isRepeatingTask && !isRepeating(activeRepeatingDays)) ||
