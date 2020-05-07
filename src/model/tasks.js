@@ -1,16 +1,30 @@
+import {getTasksByFilter} from "../utils/filter.js";
+import {FilterType} from "../constants.js";
+
 export default class Task {
   constructor() {
     this._tasks = [];
+    this._activeFilterType = FilterType.ALL;
     this._dataChangeHandlers = [];
+    this._filterChangeHandlers = [];
   }
 
   getTasks() {
+    return getTasksByFilter(this._tasks, this._activeFilterType);
+  }
+
+  getTasksAll() {
     return this._tasks;
   }
 
   setTasks(tasks) {
     this._tasks = Array.from(tasks);
     this._callHandlers(this._dataChangeHandlers); // to do second side binding of views
+  }
+
+  setFilter(filterType) {
+    this._activeFilterType = filterType;
+    this._callHandlers(this._filterChangeHandlers);
   }
 
   updateTask(id, task) {
@@ -23,6 +37,10 @@ export default class Task {
     this._callHandlers(this._dataChangeHandlers);
 
     return true;
+  }
+
+  setFilterChangeHandler(handler) {
+    this._filterChangeHandlers.push(handler);
   }
 
   setDataChangeHandler(handler) {
