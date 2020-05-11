@@ -81,7 +81,7 @@ export default class TaskController {
         }
         break;
       case Modes.ADDING:
-        if (oldTaskEditComponent && oldTaskComponent) {
+        if (oldTaskEditComponent && oldTaskComponent) { // Зачем? oldscomponents для Modes.ADDING не существует
           remove(oldTaskComponent);
           remove(oldTaskEditComponent);
         }

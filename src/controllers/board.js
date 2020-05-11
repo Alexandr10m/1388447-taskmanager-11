@@ -132,12 +132,12 @@ export default class BoardController {
   }
 
   _onDataChange(taskController, oldData, newData) {
-    if (oldData === EmptyTask) {
+    if (oldData === EmptyTask) { // is this somthing new? Yes
       this._creatingTask = null;
-      if (newData === null) {
+      if (newData === null) { // accept EmptyTask and data -> didn`t create new task and cancel
         taskController.destroy();
         this._updateTasks(this._showingTasksCount);
-      } else {
+      } else { // accept EmptyTask and data -> add new task
         this._tasksModel.addTask(newData);
         taskController.render(newData, TaskControllerMode.DEFAULT);
 
@@ -151,10 +151,10 @@ export default class BoardController {
 
         this._renderLoadMoreButton();
       }
-    } else if (newData === null) {
+    } else if (newData === null) { // accept oldData and null -> delete task
       this._tasksModel.removeTask(oldData.id);
       this._updateTasks(this._showingTasksCount);
-    } else {
+    } else { // change
       const isSuccess = this._tasksModel.updateTask(oldData.id, newData);
 
       if (isSuccess) {

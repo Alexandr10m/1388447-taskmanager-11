@@ -19,7 +19,7 @@ export default class Task {
 
   setTasks(tasks) {
     this._tasks = Array.from(tasks);
-    this._callHandlers(this._dataChangeHandlers); // to do second side binding of views
+    this._callHandlers(this._dataChangeHandlers);
   }
 
   setFilter(filterType) {
