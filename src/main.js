@@ -1,33 +1,42 @@
-import BoardComponent from "./components/Board.js";
+import BoardComponent from "./components/board.js";
 import BoardController from "./controllers/board.js";
-import FilterComponent from "./components/Filters.js";
-import SiteMenuComponent from "./components/Menu.js";
+import FilterController from "./controllers/filter.js";
+import SiteMenuComponent, {MenuItem} from "./components/Menu.js";
+import TasksModel from "./model/tasks.js";
 import {generateTasks} from "./mock/task.js";
-import {generateFilters} from "./mock/filter.js";
 import {render} from "./utils/render.js";
 
 const TASK_COUNT = 22;
 
-const renderMenu = () => {
-  const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
-  render(siteHeaderElement, new SiteMenuComponent());
-};
 const renderFilters = () => {
-  render(siteMainElement, new FilterComponent(filters));
-};
-const renderBoard = () => {
-  const boardComponent = new BoardComponent();
-  const boardController = new BoardController(boardComponent);
-
-  render(siteMainElement, boardComponent);
-  boardController.render(tasks);
+  const filterController = new FilterController(siteMainElement, tasksModel);
+  filterController.render();
 };
 
 const siteMainElement = document.querySelector(`.main`);
 
 const tasks = generateTasks(TASK_COUNT);
-const filters = generateFilters();
 
-renderMenu();
+const tasksModel = new TasksModel();
+tasksModel.setTasks(tasks);
+
+
+const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
+const siteMenuComponent = new SiteMenuComponent();
+render(siteHeaderElement, siteMenuComponent);
+
 renderFilters();
-renderBoard();
+
+const boardComponent = new BoardComponent();
+render(siteMainElement, boardComponent);
+const boardController = new BoardController(boardComponent, tasksModel);
+boardController.render();
+
+siteMenuComponent.setOnChange((menuItem) => {
+  switch (menuItem) {
+    case MenuItem.NEW_TASK:
+      siteMenuComponent.setActiveItem(MenuItem.TASKS);
+      boardController.createTask();
+      break;
+  }
+});
