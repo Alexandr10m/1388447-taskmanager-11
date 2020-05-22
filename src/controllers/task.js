@@ -4,6 +4,8 @@ import TaskModel from "../model/task.js";
 import {render, replace, remove} from "../utils/render.js";
 import {COLOR, DAYS} from "../constants.js";
 
+const SHAKE_ANIMATION_TIMEOUT = 600;
+
 const Modes = {
   ADDING: `adding`,
   DEFAULT: `default`,
@@ -85,12 +87,23 @@ export default class TaskController {
 
     this._taskEditComponent.setSubmitHandler((evt) => {
       evt.preventDefault();
+
       const formData = this._taskEditComponent.getData();
       const data = parseFormData(formData);
+
       this._onDataChange(this, task, data);
+      this._taskEditComponent.setData({
+        saveButtonText: `Saving...`,
+      });
     });
 
-    this._taskEditComponent.setDeleteButtonClickHandler(() => this._onDataChange(this, task, null));
+    this._taskEditComponent.setDeleteButtonClickHandler(() => {
+      this._taskEditComponent.setData({
+        deleteButtonText: `Deleting...`,
+      });
+
+      this._onDataChange(this, task, null);
+    });
 
     switch (mode) {
       case Modes.DEFAULT:
@@ -123,6 +136,20 @@ export default class TaskController {
     remove(this._taskEditComponent);
     remove(this._taskComponent);
     document.removeEventListener(`keydown`, this._onEscKeyDown);
+  }
+
+  shake() {
+    this._taskEditComponent.getElement().style.animation = `shake ${SHAKE_ANIMATION_TIMEOUT / 1000}s`;
+    this._taskComponent.getElement().style.animation = `shake ${SHAKE_ANIMATION_TIMEOUT / 1000}s`;
+
+    setTimeout(() => {
+      this._taskEditComponent.getElement().style.animation = ``;
+      this._taskComponent.getElement().style.animation = ``;
+      this._taskEditComponent.setData({
+        saveButtonText: `Save`,
+        deleteButtonText: `Delete`,
+      });
+    }, SHAKE_ANIMATION_TIMEOUT);
   }
 
   _replaceEditToTask() {
