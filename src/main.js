@@ -8,6 +8,7 @@ import TasksModel from "./model/tasks.js";
 import {render} from "./utils/render.js";
 
 const AUTHORIZATION = `Basic er883jdzbdw`;
+const END_POINT = `https://11.ecmascript.pages.academy/task-manager`;
 
 const createTaskModel = () => {
   const tasksModel = new TasksModel();
@@ -27,8 +28,8 @@ const renderBord = () => {
   render(siteMainElement, boardComponent);
   return boardComponent;
 };
-const renderBordController = (board, data) => {
-  const boardController = new BoardController(board, data);
+const renderBordController = (board, data, api) => {
+  const boardController = new BoardController(board, data, api);
   boardController.render();
   return boardController;
 };
@@ -38,16 +39,15 @@ const renderStatistics = (model, from, to) => {
   return statisticsComponent;
 };
 
-
 const siteMainElement = document.querySelector(`.main`);
 const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
 
-const api = new API(AUTHORIZATION);
+const api = new API(END_POINT, AUTHORIZATION);
 const tasksModel = createTaskModel();
 const siteMenuComponent = renderMenu();
 renderFilters();
 const boardComponent = renderBord();
-const boardController = renderBordController(boardComponent, tasksModel);
+const boardController = renderBordController(boardComponent, tasksModel, api);
 
 
 const dateTo = new Date();
