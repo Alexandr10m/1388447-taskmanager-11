@@ -4,6 +4,7 @@ import SortComponent, {SortType} from "../components/sort.js";
 import TasksComponent from "../components/tasks.js";
 import {render, remove} from "../utils/render.js";
 import TaskController, {Modes as TaskControllerMode, EmptyTask} from "./task.js";
+import LoadingComponent from "../components/loading.js";
 
 
 const SHOWING_TASKS_COUNT_ON_START = 8;
@@ -47,6 +48,7 @@ export default class BoardController {
     this._sortComponent = new SortComponent();
     this._tasksComponent = new TasksComponent();
     this._loadMoreButtonComponent = new LoadMoreButtonComponent();
+    this._loadingComponent = null;
     this._creatingTask = null;
 
     this._onDataChange = this._onDataChange.bind(this);
@@ -69,6 +71,10 @@ export default class BoardController {
   }
 
   render() {
+    if (this._loadingComponent) {
+      remove(this._loadingComponent);
+    }
+
     const container = this._container.getElement();
     const tasks = this._tasksModel.getTasks();
     const isAllTasksArchived = tasks.every((task) => task.isArchive);
@@ -198,5 +204,10 @@ export default class BoardController {
 
   _onFilterChange() {
     this._updateTasks(SHOWING_TASKS_COUNT_ON_START);
+  }
+
+  renderLoanding() {
+    this._loadingComponent = new LoadingComponent();
+    render(this._container, this._loadingComponent);
   }
 }

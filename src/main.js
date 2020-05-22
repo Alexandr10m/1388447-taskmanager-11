@@ -48,7 +48,7 @@ const siteMenuComponent = renderMenu();
 renderFilters();
 const boardComponent = renderBord();
 const boardController = renderBordController(boardComponent, tasksModel, api);
-
+boardController.renderLoanding();
 
 const dateTo = new Date();
 const dateFrom = (() => {
@@ -83,5 +83,5 @@ siteMenuComponent.setOnChange((menuItem) => {
 api.getTasks()
   .then((tasks) => {
     tasksModel.setTasks(tasks);
-    boardController.render();
+    // boardController.render();
   });
